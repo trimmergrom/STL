@@ -3,7 +3,7 @@
 #include<map>
 #include<list>
 #include<vector>
-
+#include<algorithm>
 
 
 #define tab "\t"
@@ -60,7 +60,7 @@ std::cout << std::endl;*/
 	std::map<std::string, std::string> week =
 	{
 		std::pair<std::string, std::string>("O1210", "Sunday"),
-		
+
 		std::pair<std::string, std::string>("A1", "Monday"),
 		std::pair<std::string, std::string>("C2", "Tuesday"),
 		std::pair<std::string, std::string>("D3", "Wednesday"),
@@ -79,7 +79,7 @@ std::cout << std::endl;*/
 
 	}
 	std::cout << delimiter << std::endl;
-	for(std::pair<std::string, std::string> i : week)
+	for (std::pair<std::string, std::string> i : week)
 	{
 		std::cout << i.first << tab << i.second << std::endl;
 	}
@@ -88,25 +88,27 @@ std::cout << std::endl;*/
 #ifdef STL_LIST
 	std::list<int> list = { 33, 12, 1, 4, 8, 21 };
 	std::list<int>::iterator it;
-for (it = list.begin(); it != list.end(); ++it)
-{
-	std::cout << *it << tab;
-}
-std::wcout << delimiter << std::endl;
-int value;
-int n;
-int _shift;
-std::wcout << "Enter inserted number: "; std::wcin >> value;
-std::wcout << "Enter number inserted lelments: "; std::wcin >> n;
-std::wcout << "Enter shift iterator: "; std::wcin >> _shift;
-it = list.begin();
-for (int i = 0; i < _shift; i++)++it;
-list.insert(it, n, value);
-for (it = list.begin(); it != list.end(); ++it)
-	{	
+	for (it = list.begin(); it != list.end(); ++it)
+	{
 		std::cout << *it << tab;
 	}
-std::wcout << delimiter << std::endl;
+	std::wcout << delimiter << std::endl;
+	int value;
+	int n;
+	int _shift;
+	std::wcout << "Enter inserted number: "; std::wcin >> value;
+	std::wcout << "Enter number inserted lelments: "; std::wcin >> n;
+	std::wcout << "Enter shift iterator: "; std::wcin >> _shift;
+	it = list.begin();
+	//for (int i = 0; i < _shift; i++)++it;
+	std::advance(it, _shift);
+	
+	//list.insert(it, n, value);
+	for (it = list.begin(); it != list.end(); ++it)
+	{
+		std::cout << *it << tab;
+	}
+	std::wcout << delimiter << std::endl;
 
 #endif // DEBUG
 
