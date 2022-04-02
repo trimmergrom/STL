@@ -108,7 +108,7 @@ void main()
 
 			std::cout << "Enter number of caar: " << std::endl; std::cin.getline(num, 20);
 			std::cout << "Enter data of protocl: " << std::endl; std::cin.getline(prt, 100);
-			//pr.push_back(prt);
+			std::pair<Number, Data>(num, prt);
 			if (event.find(it->first) == event.end())
 			{			
 				event.insert(std::pair<Number, Data>(num, prt));
