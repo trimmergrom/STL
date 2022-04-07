@@ -70,6 +70,8 @@ void main()
 	SetConsoleOutputCP(1251);
 	std::map<std::string, std::list<Actions>> base;
 	std::map<std::string, std::list<Actions>>::iterator it;
+	time_t act_time;
+	time(&act_time);
 
 	menu(base, "base.txt");	
 }
@@ -213,7 +215,7 @@ void menu(std::map<std::string, std::list<Actions>>& base, const std::string& fi
 	{
 		system("CLS");
 		cout << "1. Output general base;" << endl;
-		cout << "2. License plate selection ;" << endl;
+		cout << "2. Sampling by license plate;" << endl;
 		cout << "3. Sampling by violation;" << endl;
 		cout << "4. Sampling by plase;" << endl;
 		cout << "5. Viborka ;" << endl;
