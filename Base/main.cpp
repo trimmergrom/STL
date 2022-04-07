@@ -30,14 +30,17 @@ std::pair<int, std::string>(9, ""),
 class Actions
 {
 	int id;
-	time_t act_time;
 	std::string plase;
 public:
-	std::string get_act_time()
-	{
-		time(&act_time);		
-		return ctime(&act_time);
-	}
+	time_t act_time;
+	//time(&act_time);
+	//std::string t_time = ctime(&act_time);
+	
+
+	/*time_t get_act_time()
+	{				
+		return time(&act_time);
+	}*/
 
 	const int get_id()const
 	{
@@ -47,13 +50,12 @@ public:
 	{
 		return plase;
 	}
-	Actions(int id, time_t, std::string& plase):id(id), act_time(act_time), plase(plase) {}
+	Actions(std::string* ctime(time_t), int id, std::string& plase):act_time(act_time), id(id),  plase(plase) {}
 	~Actions(){}	
 };
-std::ostream& operator<<(std::ostream& os, Actions& obj)
-{
-	
-	return os << ACTIONS.at(obj.get_id()) << " " << obj.get_act_time() << obj.get_plase();	
+std::ostream& operator<<(std::ostream& os, const Actions& obj)
+{	
+	return os << obj.act_time << ACTIONS.at(obj.get_id()) << " " << obj.get_plase();
 }
 std::ofstream& operator<<(std::ofstream& ofs, const Actions& obj)
 {
@@ -71,6 +73,7 @@ void menu(std::map<std::string, std::list<Actions>>& base, const std::string& fi
 void search_plate(const std::map<std::string, std::list<Actions>>& base);
 void search_Actions(const std::map<std::string, std::list<Actions>>& base);
 void search_place(const std::map<std::string, std::list<Actions>>& base);
+std::string set_time(time_t act_time);
 
 void main()
 {
@@ -214,6 +217,11 @@ std::string input_plate()
 	cout << "Enter license_plate: "; cin >> license_plate;
 	return license_plate;
 }
+std::string set_time(time_t act_time)
+{
+	time(&act_time);
+	return ctime(&act_time);
+}
 void menu(std::map<std::string, std::list<Actions>>& base, const std::string& filename)
 {
 	char key;
@@ -242,7 +250,7 @@ void menu(std::map<std::string, std::list<Actions>>& base, const std::string& fi
 		case '6': cout << "No option "; system("PAUSE");  break;
 		case '7': save(base, filename); break;
 		case '8': load(base, filename); break;
-		case '9': base[input_plate()].push_back(Actions(check_Actions(), input_plase())); break;
+		case '9': base[input_plate()].push_back(Actions (set_time(), check_Actions(), input_plase())); break;
 		
 		}
 
