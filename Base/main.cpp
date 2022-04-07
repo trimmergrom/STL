@@ -30,8 +30,15 @@ std::pair<int, std::string>(9, ""),
 class Actions
 {
 	int id;
+	time_t act_time;
 	std::string plase;
 public:
+	std::string get_act_time()
+	{
+		time(&act_time);		
+		return ctime(&act_time);
+	}
+
 	const int get_id()const
 	{
 		return id;
@@ -40,12 +47,13 @@ public:
 	{
 		return plase;
 	}
-	Actions(int id, const std::string& plase):id(id), plase(plase){}
+	Actions(int id, time_t, std::string& plase):id(id), act_time(act_time), plase(plase) {}
 	~Actions(){}	
 };
-std::ostream& operator<<(std::ostream& os, const Actions& obj)
+std::ostream& operator<<(std::ostream& os, Actions& obj)
 {
-	return os << ACTIONS.at(obj.get_id()) << " " << obj.get_plase();	
+	
+	return os << ACTIONS.at(obj.get_id()) << " " << obj.get_act_time() << obj.get_plase();	
 }
 std::ofstream& operator<<(std::ofstream& ofs, const Actions& obj)
 {
