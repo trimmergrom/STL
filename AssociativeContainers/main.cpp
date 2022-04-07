@@ -9,8 +9,8 @@
 #define tab "\t"
 #define delimiter "\n--------------------\n"
 //#define STL_SET
-//#define STL_MAP
-#define STL_LIST
+#define STL_MAP
+//#define STL_LIST
 
 int main()
 {
@@ -57,7 +57,10 @@ std::cout << std::endl;*/
 #endif // STL-SET
 
 #ifdef STL_MAP
-	std::map<std::string, std::string> week =
+	std::map<std::string, std::string> week;
+	std::map<std::string, std::string>::iterator it;
+
+		week =
 	{
 		std::pair<std::string, std::string>("O1210", "Sunday"),
 
@@ -83,6 +86,8 @@ std::cout << std::endl;*/
 	{
 		std::cout << i.first << tab << i.second << std::endl;
 	}
+	//if(it == week.find("C2"));
+	
 #endif
 
 #ifdef STL_LIST
