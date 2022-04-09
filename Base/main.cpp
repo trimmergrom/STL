@@ -31,17 +31,13 @@ class Actions
 {
 	int id;
 	std::string plase;
+	std::string check_time;
 public:
-	time_t act_time;
-	//time(&act_time);
-	//std::string t_time = ctime(&act_time);
 	
-
-	/*time_t get_act_time()
-	{				
-		return time(&act_time);
-	}*/
-
+	const std::string get_check_time()const
+	{		
+		return check_time;
+	}
 	const int get_id()const
 	{
 		return id;
@@ -50,16 +46,21 @@ public:
 	{
 		return plase;
 	}
-	Actions(std::string* ctime(time_t), int id, std::string& plase):act_time(act_time), id(id),  plase(plase) {}
+	void set_check_time(std::string check_time)
+	{
+		this->check_time = check_time;
+	}
+	Actions(std::string check_time, int id, std::string& plase):check_time(check_time), id(id),  plase(plase){}
+	
 	~Actions(){}	
 };
 std::ostream& operator<<(std::ostream& os, const Actions& obj)
 {	
-	return os << obj.act_time << ACTIONS.at(obj.get_id()) << " " << obj.get_plase();
+	return os << obj.get_check_time() << " " << ACTIONS.at(obj.get_id()) << " " << obj.get_plase();
 }
 std::ofstream& operator<<(std::ofstream& ofs, const Actions& obj)
 {
-	ofs << obj.get_id() << obj.get_plase();
+	ofs << obj.get_check_time() << obj.get_id() << obj.get_plase();
 	return ofs;
 }
 
@@ -73,7 +74,7 @@ void menu(std::map<std::string, std::list<Actions>>& base, const std::string& fi
 void search_plate(const std::map<std::string, std::list<Actions>>& base);
 void search_Actions(const std::map<std::string, std::list<Actions>>& base);
 void search_place(const std::map<std::string, std::list<Actions>>& base);
-std::string set_time(time_t act_time);
+std::string set_time();
 
 void main()
 {
@@ -168,9 +169,9 @@ void load(std::map<std::string, std::list<Actions>>& base, const std::string fil
 	{
 		while (!fin.eof())
 		{
-			std::string license_plate;
+			std::string license_plate;			
 			std::string all_actions;
-			std::getline(fin, license_plate, ':');
+			std::getline(fin, license_plate, ':');			
 			std::getline(fin, all_actions);
 			if (license_plate.empty() || all_actions.empty())continue;
 			all_actions.erase(all_actions.find_last_of(';'));
@@ -180,9 +181,10 @@ void load(std::map<std::string, std::list<Actions>>& base, const std::string fil
 				end = all_actions.find(',', start);
 				std::string plase = all_actions.substr(start, end - start);
 				int id = std::stoi(plase, 0, 10);
+				std::string check_time
 				plase.erase(-1, 1);
 				//plase.erase(plase.find_last_of(';'));
-				base[license_plate].push_back(Actions(id, plase));
+				base[license_plate].push_back(Actions(check_time, id, plase));
 			}
 		}
 		fin.close();
@@ -217,10 +219,13 @@ std::string input_plate()
 	cout << "Enter license_plate: "; cin >> license_plate;
 	return license_plate;
 }
-std::string set_time(time_t act_time)
+std::string set_time()
 {
-	time(&act_time);
-	return ctime(&act_time);
+	std::string check_time;
+	time_t cur_time;
+	time(&cur_time);
+	check_time = ctime(&cur_time);
+	return check_time;
 }
 void menu(std::map<std::string, std::list<Actions>>& base, const std::string& filename)
 {
@@ -229,7 +234,7 @@ void menu(std::map<std::string, std::list<Actions>>& base, const std::string& fi
 	{
 		system("CLS");
 		cout << "1. Output general base;" << endl;
-		cout << "2. License plate selection ;" << endl;
+		cout << "2. Sampling bu License plate;" << endl;
 		cout << "3. Sampling by violation;" << endl;
 		cout << "4. Sampling by plase;" << endl;
 		cout << "5. Viborka ;" << endl;
@@ -250,7 +255,7 @@ void menu(std::map<std::string, std::list<Actions>>& base, const std::string& fi
 		case '6': cout << "No option "; system("PAUSE");  break;
 		case '7': save(base, filename); break;
 		case '8': load(base, filename); break;
-		case '9': base[input_plate()].push_back(Actions (set_time(), check_Actions(), input_plase())); break;
+		case '9': base[input_plate()].push_back(Actions(set_time(), check_Actions(), input_plase())); break;
 		
 		}
 

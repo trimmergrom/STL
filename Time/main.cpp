@@ -4,10 +4,12 @@
 
 int main()
 {
+	std::string check_time;
 	time_t rawtime;
-
 	time(&rawtime);
-	std::cout << ctime(&rawtime) << std::endl;
+	check_time = ctime(&rawtime);
+	std::cout << check_time << std::endl;
+	//std::cout << ctime(&rawtime) << typeid(ctime(&rawtime)) <<std::endl;
 
 	return 0;
 }
