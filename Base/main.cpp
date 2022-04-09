@@ -171,7 +171,7 @@ void load(std::map<std::string, std::list<Actions>>& base, const std::string fil
 				end = all_actions.find(',', start);
 				std::string plase = all_actions.substr(start, end - start);
 				int id = std::stoi(plase, 0, 10);
-				plase.erase(-1, 1);
+				plase.erase(0, 1);
 				//plase.erase(plase.find_last_of(';'));
 				base[license_plate].push_back(Actions(id, plase));
 			}
@@ -198,7 +198,8 @@ std::string input_plase()
 {
 	std::string plase;
 	cout << "¬вести место событи€: ";
-	std::cin.ignore(); std::getline(std::cin, plase);
+	std::cin.ignore(); 
+	std::getline(std::cin, plase);
 	return plase;
 }
 std::string input_plate()
